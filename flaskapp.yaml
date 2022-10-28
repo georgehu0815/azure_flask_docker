@@ -19,5 +19,5 @@ spec:
         image: udgtgmay2gwjiacr.azurecr.io/flaskapp:1.0
         ports:
         - containerPort: 5000
-    nodeSelector:
-      pool: linux
+      nodeSelector:
+        pool: linux
