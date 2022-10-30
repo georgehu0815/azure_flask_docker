@@ -14,5 +14,5 @@ spec:
               service:
                 name: flasklinuxservice
                 port:
-                  number: 80
+                  number: 5000
             path: /

@@ -46,3 +46,7 @@ helm install nginx-ingress ingress-nginx/ingress-nginx \
     --set defaultBackend.image.image=$DEFAULTBACKEND_IMAGE \
     --set defaultBackend.image.tag=$DEFAULTBACKEND_TAG \
     --set defaultBackend.image.digest=""
+
+
+
+kubectl get services --namespace default -o wide -w ingress-nginx-controller
