@@ -3,6 +3,9 @@ kind: Ingress
 metadata:
   name: flaskingress
   namespace: default
+  annotations:
+    # kubernetes.io/ingress.regional-static-ip-name:   10.224.0.42
+    service.beta.kubernetes.io/azure-load-balancer-internal: "true"
 spec:
   ingressClassName: nginx
   rules:
