@@ -19,12 +19,28 @@ az network public-ip create \
     --allocation-method Static
     --zone 1 2 3
 
-az network vnet subnet create -n $subnetname --vnet-name $vnetname -g $myResourceGroup \
---address-prefixes "10.1.3.0/24"
+vnetname='spoke-VNet'
+subnetname='gatewaysubnet'
+myResourceGroup='akstmp-RG'
+az network vnet subnet create -n $subnetname --vnet-name $vnetname -g $myResourceGroup --address-prefixes "10.1.100.0/24"
 # --nat-gateway MyNatGateway 
 
-# az network vnet create -n myVnet -g myResourceGroup --address-prefix 10.0.0.0/16 --subnet-name $subnetname --subnet-prefix 10.1.3.0/24 
+# az network vnet create -n myVnet -g myResourceGroup --address-prefix 10.0.0.0/16 --subnet-name $subnetname --subnet-prefix 10.1.100.0/24 
 
+gatewayname='cdlgatewayaks'
+myResourceGroup='akstmp-RG'
+myStandardPublicIP='cdlgatewaypubip'
+subnetname='gatewaysubnet'
+vnetname='spoke-VNet'
 az network application-gateway create -n $gatewayname -l westcentralus -g $myResourceGroup \
 --sku Standard_v2 --public-ip-address $myStandardPublicIP \
---vnet-name myVnet --subnet $subnetname --priority 100
+--vnet-name $vnetname --subnet $subnetname --priority 100
+
+
+##enable apg
+gatewayname='cdlgatewayaks'
+myResourceGroup='akstmp-RG'
+appgwId=$(az network application-gateway show -n $gatewayname -g $myResourceGroup -o tsv --query "id") 
+
+aksname='akstmpaks'
+az aks enable-addons -n $aksname -g $myResourceGroup -a ingress-appgw --appgw-id $appgwId
