@@ -14,6 +14,8 @@ spec:
       - path: /
         pathType: Prefix
         backend:
-          serviceName: flasklinuxservicecluster
-          servicePort: 80
+          service:
+            name: flasklinuxservicecluster
+            port: 
+              number: 80
        
