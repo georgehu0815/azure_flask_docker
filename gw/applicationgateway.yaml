@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: flask-gateway
+  namespace: default
+  annotations:
+    kubernetes.io/ingress.class: azure/application-gateway
+    # appgw.ingress.kubernetes.io/override-frontend-port: "8080"
+spec:
+  rules:
+  - host: cdl.com
+    http:
+    - paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          serviceName: flasklinuxservicecluster
+          servicePort: 80
+
+  # - http:
+  #     paths:
+  #     - path: /cdl/
+  #       backend:
+  #         service:
+  #           name: flaskapplinux
+  #           port:
+  #             number: 5000
+  #       pathType: Exact

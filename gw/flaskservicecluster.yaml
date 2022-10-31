@@ -1,0 +1,15 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: flasklinuxservicecluster
+  # annotations:
+  #   service.beta.kubernetes.io/azure-load-balancer-internal: "true"  
+spec:
+  ports:
+  - port: 80
+    protocol: TCP
+    targetPort: 5000
+  selector:
+    app: flaskapplinux
+  type: ClusterIP
+  # loadBalancerIP: 10.240.0.25  
