@@ -1,5 +1,5 @@
 
-
+az login --scope https://management.core.windows.net//.default
 
 myResourceGroup='akstmp-RG'
 myStandardPublicIP='cdlgatewaypubip'
@@ -7,14 +7,17 @@ gatewayname='cdlgatewayaks'
 vnetname='spoke-VNet'
 subnetname='gatewaysubnet'
 
-az network public-ip create -n $myStandardPublicIP -g $myResourceGroup --allocation-method Static --sku Standard
+# az network public-ip create -n $myStandardPublicIP -g $myResourceGroup \
+# --allocation-method Static --sku Standard \
 
-# az network public-ip create \
-#     --resource-group $myResourceGroup \
-#     --name $myStandardPublicIP \
-#     --version IPv4 \
-#     --sku Basic \
-#     --allocation-method Static
+
+az network public-ip create \
+    --resource-group $myResourceGroup \
+    --name $myStandardPublicIP \
+    --version IPv4 \
+    --sku Standard \
+    --allocation-method Static
+    --zone 1 2 3
 
 az network vnet subnet create -n $subnetname --vnet-name $vnetname -g $myResourceGroup \
 --address-prefixes "10.1.3.0/24"
