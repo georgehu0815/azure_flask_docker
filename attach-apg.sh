@@ -25,20 +25,21 @@ myResourceGroup='akstmp-RG'
 az network vnet subnet create -n $subnetname --vnet-name $vnetname -g $myResourceGroup --address-prefixes "10.1.100.0/24"
 # --nat-gateway MyNatGateway 
 
-# az network vnet create -n myVnet -g myResourceGroup --address-prefix 10.0.0.0/16 --subnet-name $subnetname --subnet-prefix 10.1.100.0/24 
+apgvnet='agpvnet'
+subnetname='gatewaysubnet2'
+myResourceGroup='akstmp-RG'
+az network vnet create -n $vnetname -g $myResourceGroup --address-prefix 10.100.0.0/16 --subnet-name $subnetname --subnet-prefix 10.1.200.0/24 
 
-gatewayname='cdlgatewayaks'
+gatewayname='cdlapg2'
 myResourceGroup='akstmp-RG'
 myStandardPublicIP='cdlgatewaypubip'
-subnetname='gatewaysubnet'
+subnetname='gatewaysubnet2'
 vnetname='spoke-VNet'
-az network application-gateway create -n $gatewayname -l westcentralus -g $myResourceGroup \
---sku Standard_v2 --public-ip-address $myStandardPublicIP \
---vnet-name $vnetname --subnet $subnetname --priority 100
+az network application-gateway create -n $gatewayname -l westcentralus -g $myResourceGroup --sku Standard_v2 --public-ip-address $myStandardPublicIP --vnet-name $vnetname --subnet $subnetname --priority 100
 
 
 ##enable apg
-gatewayname='cdlgatewayaks'
+gatewayname='cdlapg2'
 myResourceGroup='akstmp-RG'
 appgwId=$(az network application-gateway show -n $gatewayname -g $myResourceGroup -o tsv --query "id") 
 

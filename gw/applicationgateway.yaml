@@ -10,19 +10,10 @@ spec:
   rules:
   - host: cdl.com
     http:
-    - paths:
+      paths:
       - path: /
         pathType: Prefix
         backend:
           serviceName: flasklinuxservicecluster
           servicePort: 80
-
-  # - http:
-  #     paths:
-  #     - path: /cdl/
-  #       backend:
-  #         service:
-  #           name: flaskapplinux
-  #           port:
-  #             number: 5000
-  #       pathType: Exact
+       
