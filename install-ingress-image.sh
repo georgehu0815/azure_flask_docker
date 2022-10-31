@@ -49,4 +49,6 @@ helm install nginx-ingress ingress-nginx/ingress-nginx \
 
 
 
-kubectl get services --namespace default -o wide -w ingress-nginx-controller
+# kubectl get services --namespace default -o wide -w ingress-nginx-controller
+
+# https://azure.github.io/application-gateway-kubernetes-ingress/annotations/
